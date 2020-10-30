@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=STEPmaker
+Comment=This session logs you into GNOME Flashback with WindowMaker
+Exec=STEPmaker-session
+TryExec=wmaker
+Type=Application
+DesktopNames=STEPmaker;GNOME-Flashback;GNOME;

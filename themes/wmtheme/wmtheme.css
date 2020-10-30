@@ -1,0 +1,52 @@
+/* NEXTmaker GTK theme inspired by NeXTSTEP
+ *
+ * Copyright (C) 2020 Nick Berendsen
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+/**********
+* General *
+**********/
+/**********************
+* Selection and focus *
+**********************/
+/*****************
+* Special colors *
+*****************/
+/***********
+* Backdrop *
+***********/
+windowmaker {
+  Base: #AEAAAE;
+  BaseLight80: white;
+  BaseLight70: white;
+  BaseLight60: white;
+  BaseLight50: white;
+  BaseLight40: white;
+  BaseLight30: #f9f8f9;
+  BaseLight20: #e0dee0;
+  BaseLight10: #c7c4c7;
+  BaseDark10: #959095;
+  BaseDark20: #7c767c;
+  BaseDark30: #625d62;
+  BaseDark40: #484448;
+  BaseDark50: #2e2b2e;
+  BaseDark60: #131313;
+  BaseDark70: black;
+  BaseDark80: black;
+  Active: white;
+  ActiveText: black;
+  FTitleColor: white;
+  UTitleColor: #e6e6e6;
+}

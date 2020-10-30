@@ -1,0 +1,23 @@
+windowmaker {
+	Base: $bg_color;
+	BaseLight80: lighten($bg_color, 80%);
+	BaseLight70: lighten($bg_color, 70%);
+	BaseLight60: lighten($bg_color, 60%);
+	BaseLight50: lighten($bg_color, 50%);
+	BaseLight40: lighten($bg_color, 40%);
+	BaseLight30: lighten($bg_color, 30%);
+	BaseLight20: lighten($bg_color, 20%);
+	BaseLight10: lighten($bg_color, 10%);
+  	BaseDark10: darken($bg_color, 10%);
+	BaseDark20: darken($bg_color, 20%);
+	BaseDark30: darken($bg_color, 30%);
+	BaseDark40: darken($bg_color, 40%);
+	BaseDark50: darken($bg_color, 50%);
+	BaseDark60: darken($bg_color, 60%);
+	BaseDark70: darken($bg_color, 70%);
+  	BaseDark80: darken($bg_color, 80%);
+  	Active: $ns_selected_bg_color;
+	ActiveText: $ns_selected_fg_color;
+	FTitleColor: $ns_selected_bg_color;
+	UTitleColor: $backdrop_ns_selected_bg_color;
+}

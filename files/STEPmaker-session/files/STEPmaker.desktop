@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=STEPmaker
+Comment=WindowMaker
+Exec=STEPmaker
+NoDisplay=true
+X-GNOME-WMName=STEPmaker
+X-GNOME-Autostart-Phase=WindowManager
+X-GNOME-Provides=windowmanager
+X-GNOME-Autostart-Notify=false

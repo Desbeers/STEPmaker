@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -z $XDG_CURRENT_DESKTOP ]; then
+    export XDG_CURRENT_DESKTOP="STEPmaker:GNOME-Flashback:GNOME"
+fi
+
+exec gnome-session --builtin --session=STEPmaker --disable-acceleration-check "$@"

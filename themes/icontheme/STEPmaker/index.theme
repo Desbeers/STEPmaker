@@ -1,0 +1,27 @@
+[Icon Theme]
+Name=STEPmaker
+Comment=Icons from the GNUstep Desktop Environment
+Inherits=Adwaita
+Example=folder
+
+Directories=32/places,144/places,32/devices,144/devices
+
+[32/places]
+Size=32
+Context=Places
+Type=Scalable
+
+[32/devices]
+Size=32
+Context=Devices
+Type=Scalable
+
+[144/places]
+Size=144
+Context=Places
+Type=Scalable
+
+[144/devices]
+Size=144
+Context=Devices
+Type=Scalable

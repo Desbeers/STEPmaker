@@ -1,0 +1,80 @@
+/* NEXTmaker GTK theme inspired by NeXTSTEP
+ *
+ * Copyright (C) 2020 Nick Berendsen
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// Colors
+
+/**********
+* General *
+**********/
+// Text widgets and the like base background color:
+$base_color: if($variant == 'light', white, #1e2227);
+// Text foreground color:
+$text_color: if($variant == 'light', black, #DFE0E1);
+// Background color and its two deviations:
+$bg_color: if($variant == 'light', #AEAAAE, #2D333A);
+$bg_color_20: if($variant == 'light', darken($bg_color,16.5), darken($bg_color,8.25));
+$bg_color_30: if($variant == 'light', darken($bg_color,33.5), darken($bg_color,16.75));
+// Insensitive text:
+$insensitive_text_color: mix($bg_color, $text_color, 50%);
+// Borders color:
+$borders_color: if($variant == 'light', mix($bg_color, $text_color, 50%), mix($bg_color, $text_color, 80%));
+
+/**********************
+* Selection and focus *
+**********************/
+// This is used for selected buttons:
+$ns_selected_bg_color: if($variant == 'light', $base_color, $text_color);
+$ns_selected_fg_color: if($variant == 'light', $text_color, $base_color);
+$ns_selected_insensitive_fg_color: mix($ns_selected_bg_color, $ns_selected_fg_color, 50%);
+// This is for text selection etc:
+$selected_bg_color: $bg_color_20;
+// This is a focus-ring for entries:
+$focus_color: #4b92e9;
+
+/*****************
+* Special colors *
+*****************/
+// Not based on any other color
+$warning_color: #f57900;
+$error_color: #cc0000;
+$success_color: if($variant == 'light', #33d17a, darken(#33d17a, 10%));
+$destructive_color: if($variant == 'light', #e01b24, darken(#e01b24, 10%));
+$suggested_color: mix($bg_color, $ns_selected_bg_color, 40%);
+$drop_target_color: #4e9a06;
+// Link colors
+$link_color: if($variant == 'light', blue, #4b92e9);
+$link_visited_color: $link_color;
+
+/***********
+* Backdrop *
+***********/
+// Colors for the backdrop state, derived from the main colors.
+// Define how much darker the backdrop will be:
+$_ns_backdrop_dim: if($variant == 'light', 10, 5);
+// Percentage of mixing of background and text
+$_ns_backdrop_text_color_dim: 50%;
+
+// The colors
+$backdrop_base_color: darken($base_color, $_ns_backdrop_dim);
+$backdrop_text_color: darken($text_color, $_ns_backdrop_dim);
+$backdrop_insensitive_text_color: darken($insensitive_text_color, $_ns_backdrop_dim);
+$backdrop_bg_color: darken($bg_color, $_ns_backdrop_dim);
+$backdrop_ns_selected_bg_color: darken($ns_selected_bg_color, $_ns_backdrop_dim);
+$backdrop_ns_selected_fg_color: lighten($ns_selected_fg_color, $_ns_backdrop_dim);
+$backdrop_ns_selected_insensitive_fg_color: darken($ns_selected_insensitive_fg_color, $_ns_backdrop_dim);
+$backdrop_borders_color: darken($bg_color, $_ns_backdrop_dim);

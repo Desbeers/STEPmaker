@@ -1,0 +1,6 @@
+[org.gnome.desktop.wm.preferences:STEPmaker]
+button-layout='appmenu:'
+
+[org.gnome.gnome-flashback:STEPmaker]
+desktop=false
+root-background=false
