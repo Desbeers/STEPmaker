@@ -52,8 +52,8 @@ $_ns_hover_lighten: 5;
 
 @mixin menu_check {
   &,
-  &:checked,
   &:hover,
+  &:checked,
   &:checked:disabled,
   &:disabled,
   &:indeterminate,
@@ -72,6 +72,7 @@ $_ns_hover_lighten: 5;
 
 @mixin menu_radio {
   &,
+  &:hover,
   &:checked,
   &:checked:disabled,
   &:disabled,

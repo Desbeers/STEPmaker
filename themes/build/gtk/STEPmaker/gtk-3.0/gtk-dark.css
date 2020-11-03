@@ -55,11 +55,9 @@ Button mixin
 ************/
 * {
   padding: 0;
-  -GtkToolButton-icon-spacing: 4;
-  -GtkTextView-error-underline-color: #cc0000;
   outline-color: alpha(currentColor,0.3);
   outline-style: dashed;
-  outline-offset: -3px;
+  outline-offset: -2px;
   outline-width: 1px;
   -gtk-outline-radius: 0;
   -gtk-secondary-caret-color: #DFE0E1;
@@ -137,31 +135,26 @@ window.background:backdrop {
   background-image: none;
 }
 
-
-.view:backdrop:disabled,
-iconview:backdrop:disabled {
+/********
+ * View *
+********/
+.view:backdrop:disabled {
   color: #8d8e8e;
 }
 
-
-.view:disabled,
-iconview:disabled {
+.view:disabled {
   color: #9a9b9b;
   background-color: #555555;
 }
 
-
-.view:selected:focus,
-iconview:selected:focus,
-.view:selected:backdrop,
-iconview:selected:backdrop,
-.view:selected,
-iconview:selected {
+.view:active:focus, .view:active, .view:selected:focus, .view:selected {
   background-color: #DFE0E1;
   color: #1e2227;
-  border: none;
-  box-shadow: none;
-  border-radius: 2px;
+}
+
+.view:active:focus:backdrop, .view:active:backdrop, .view:selected:focus:backdrop, .view:selected:backdrop {
+  background-color: #d2d3d5;
+  color: #292f35;
 }
 
 /***********
@@ -190,16 +183,6 @@ rubberband,
 flowbox rubberband {
   border: 1px solid #c5c7c8;
   background-color: rgba(197, 199, 200, 0.2);
-}
-
-flowbox flowboxchild {
-  padding: 3px;
-}
-
-flowbox flowboxchild:selected {
-  background-color: #4b92e9;
-  color: white;
-  outline-offset: -2px;
 }
 
 /*************
@@ -494,6 +477,18 @@ separator {
   padding: 6px;
 }
 
+/**********
+* Flowbox *
+**********/
+flowbox flowboxchild {
+  padding: 6px;
+}
+
+flowbox flowboxchild:selected {
+  background-color: #DFE0E1;
+  color: #1e2227;
+}
+
 /***********
  * Buttons *
  ***********/
@@ -728,7 +723,7 @@ button.suggested-action {
 button.suggested-action,
 button.suggested-action label,
 button.suggested-action > check {
-  color: #DFE0E1;
+  color: #1e2227;
 }
 
 button.suggested-action.flat {
@@ -755,7 +750,7 @@ button.suggested-action:hover {
 button.suggested-action:hover,
 button.suggested-action:hover label,
 button.suggested-action:hover > check {
-  color: #DFE0E1;
+  color: #1e2227;
 }
 
 button.suggested-action:active, button.suggested-action:checked {
@@ -986,34 +981,6 @@ button separator {
   min-width: 2px;
 }
 
-Amodelbutton.flat,
-.Amenuitem.button.flat {
-  min-height: 26px;
-  padding-left: 0px;
-  padding-right: 0px;
-  border-left: 1px solid #888888;
-  border-top: 1px solid #888888;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-  box-shadow: inset -1px -1px 0px 0px #090909;
-  background-color: #555555;
-}
-
-Amodelbutton.flat,
-Amodelbutton.flat label,
-Amodelbutton.flat > check,
-.Amenuitem.button.flat,
-.Amenuitem.button.flat label,
-.Amenuitem.button.flat > check {
-  color: #DFE0E1;
-}
-
-Amodelbutton.flat:hover,
-.Amenuitem.button.flat:hover {
-  color: #1e2227;
-  background-color: #DFE0E1;
-}
-
 modelbutton.flat arrow {
   background: none;
 }
@@ -1142,23 +1109,42 @@ row.activatable:backdrop:checked > check {
 spinbutton {
   box-shadow: inset 2px 2px 0px 0px black, inset -2px -2px 0px 0px #222222, inset -1px -1px 0px 0px #888888;
   padding: 2px;
-  margin: 1px 1px 2px 1px;
+}
+
+spinbutton.horizontal entry {
+  padding: 0 6px;
+}
+
+spinbutton.horizontal button {
+  margin: 0 -1px -1px 0;
+}
+
+spinbutton.vertical {
+  padding: 1px 2px 0 1px;
+}
+
+spinbutton.vertical entry {
+  padding: 3px 0;
+  margin: 0 1px 0 0;
+}
+
+spinbutton.vertical button {
+  margin: 0 -1px 1px 0;
 }
 
 spinbutton entry,
 spinbutton entry:disabled,
+spinbutton entry:focused,
 spinbutton entry:backdrop,
 spinbutton entry:disabled:backdrop {
   box-shadow: none;
   min-height: 1px;
   min-width: 1px;
-  padding: 0 6px;
 }
 
 spinbutton button {
   min-width: 12px;
   min-height: 12px;
-  margin: 0 -1px -1px 0;
 }
 
 /************
@@ -1452,6 +1438,25 @@ popover.background modelbutton > label {
   color: #DFE0E1;
 }
 
+popover.background button:disabled,
+popover.background modelbutton:disabled {
+  border-left: 1px solid #888888;
+  border-top: 1px solid #888888;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  box-shadow: inset -1px -1px 0px 0px #090909;
+  background-color: #555555;
+}
+
+popover.background button:disabled,
+popover.background button:disabled label,
+popover.background button:disabled > check,
+popover.background modelbutton:disabled,
+popover.background modelbutton:disabled label,
+popover.background modelbutton:disabled > check {
+  color: #9a9b9b;
+}
+
 popover.background button:hover,
 popover.background modelbutton:hover {
   border-left: 1px solid #DFE0E1;
@@ -1477,10 +1482,10 @@ popover.background modelbutton check {
   margin-right: -6px;
 }
 
-popover.background button check, popover.background button check:checked, popover.background button check:hover, popover.background button check:checked:disabled, popover.background button check:disabled, popover.background button check:indeterminate, popover.background button check:disabled:indeterminate,
+popover.background button check, popover.background button check:hover, popover.background button check:checked, popover.background button check:checked:disabled, popover.background button check:disabled, popover.background button check:indeterminate, popover.background button check:disabled:indeterminate,
 popover.background modelbutton check,
-popover.background modelbutton check:checked,
 popover.background modelbutton check:hover,
+popover.background modelbutton check:checked,
 popover.background modelbutton check:checked:disabled,
 popover.background modelbutton check:disabled,
 popover.background modelbutton check:indeterminate,
@@ -1495,8 +1500,9 @@ popover.background modelbutton radio {
   margin-right: -4px;
 }
 
-popover.background button radio, popover.background button radio:checked, popover.background button radio:checked:disabled, popover.background button radio:disabled, popover.background button radio:indeterminate, popover.background button radio:disabled:indeterminate,
+popover.background button radio, popover.background button radio:hover, popover.background button radio:checked, popover.background button radio:checked:disabled, popover.background button radio:disabled, popover.background button radio:indeterminate, popover.background button radio:disabled:indeterminate,
 popover.background modelbutton radio,
+popover.background modelbutton radio:hover,
 popover.background modelbutton radio:checked,
 popover.background modelbutton radio:checked:disabled,
 popover.background modelbutton radio:disabled,
@@ -1889,48 +1895,12 @@ switch:backdrop:disabled slider {
 /*********
 * Labels *
 *********/
-.content-view .tile {
-  margin: 2px;
-  background-color: black;
-  border-radius: 0;
-  padding: 0;
-}
-
-.content-view .tile:backdrop {
-  background-color: #08090a;
-}
-
-.content-view .tile:active, .content-view .tile:selected {
-  background-color: #DFE0E1;
-}
-
-.content-view .tile:disabled {
-  background-color: #555555;
-}
-
-label {
-  caret-color: currentColor;
-}
-
-label selection {
-  background-color: #DFE0E1;
-  color: #1e2227;
-}
-
 label:disabled {
   color: #9a9b9b;
 }
 
-button label:disabled {
-  color: inherit;
-}
-
 label:disabled:backdrop {
   color: #8d8e8e;
-}
-
-button label:disabled:backdrop {
-  color: inherit;
 }
 
 label.error {
@@ -1945,46 +1915,8 @@ label.error:disabled:backdrop {
   color: rgba(204, 0, 0, 0.4);
 }
 
-.dim-label, label.separator {
+.dim-label {
   opacity: 0.55;
-  text-shadow: none;
-}
-
-aaaa.dim-label {
-  text-shadow: none;
-  color: #DFE0E1;
-}
-
-aaaa.dim-label:backdrop {
-  color: #d2d3d5;
-}
-
-aaalabel:disabled {
-  color: #9a9b9b;
-}
-
-button aaalabel:disabled {
-  color: inherit;
-}
-
-aaalabel:disabled:backdrop {
-  color: #8d8e8e;
-}
-
-aaalabel:backdrop {
-  color: #d2d3d5;
-}
-
-aaalabel.error {
-  color: #cc0000;
-}
-
-aaalabel.error:disabled {
-  color: rgba(204, 0, 0, 0.5);
-}
-
-aaalabel.error:disabled:backdrop {
-  color: rgba(204, 0, 0, 0.4);
 }
 
 /**********
@@ -2398,17 +2330,17 @@ menu > menuitem:backdrop, menu > menuitem:backdrop:hover,
   background-color: transparent;
 }
 
-menu > menuitem check, menu > menuitem check:checked, menu > menuitem check:hover, menu > menuitem check:checked:disabled, menu > menuitem check:disabled, menu > menuitem check:indeterminate, menu > menuitem check:disabled:indeterminate,
+menu > menuitem check, menu > menuitem check:hover, menu > menuitem check:checked, menu > menuitem check:checked:disabled, menu > menuitem check:disabled, menu > menuitem check:indeterminate, menu > menuitem check:disabled:indeterminate,
 .menu > menuitem check,
-.menu > menuitem check:checked,
 .menu > menuitem check:hover,
+.menu > menuitem check:checked,
 .menu > menuitem check:checked:disabled,
 .menu > menuitem check:disabled,
 .menu > menuitem check:indeterminate,
 .menu > menuitem check:disabled:indeterminate,
 .context-menu > menuitem check,
-.context-menu > menuitem check:checked,
 .context-menu > menuitem check:hover,
+.context-menu > menuitem check:checked,
 .context-menu > menuitem check:checked:disabled,
 .context-menu > menuitem check:disabled,
 .context-menu > menuitem check:indeterminate,
@@ -2418,14 +2350,16 @@ menu > menuitem check, menu > menuitem check:checked, menu > menuitem check:hove
   border: 1px solid transparent;
 }
 
-menu > menuitem radio, menu > menuitem radio:checked, menu > menuitem radio:checked:disabled, menu > menuitem radio:disabled, menu > menuitem radio:indeterminate, menu > menuitem radio:disabled:indeterminate,
+menu > menuitem radio, menu > menuitem radio:hover, menu > menuitem radio:checked, menu > menuitem radio:checked:disabled, menu > menuitem radio:disabled, menu > menuitem radio:indeterminate, menu > menuitem radio:disabled:indeterminate,
 .menu > menuitem radio,
+.menu > menuitem radio:hover,
 .menu > menuitem radio:checked,
 .menu > menuitem radio:checked:disabled,
 .menu > menuitem radio:disabled,
 .menu > menuitem radio:indeterminate,
 .menu > menuitem radio:disabled:indeterminate,
 .context-menu > menuitem radio,
+.context-menu > menuitem radio:hover,
 .context-menu > menuitem radio:checked,
 .context-menu > menuitem radio:checked:disabled,
 .context-menu > menuitem radio:disabled,
@@ -2615,7 +2549,7 @@ notebook tab {
   border-right: 1px solid black;
   box-shadow: inset -1px -1px 0px 0px #090909;
   background-color: #555555;
-  padding: 0px 8px 4px 8px;
+  padding: 0px 3px 3px 3px;
 }
 
 notebook tab,
@@ -2651,6 +2585,18 @@ notebook tab:checked {
 notebook tab:checked,
 notebook tab:checked label,
 notebook tab:checked > check {
+  color: #1e2227;
+}
+
+notebook tab:checked button.flat {
+  border: 1px solid transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+notebook tab:checked button.flat,
+notebook tab:checked button.flat label,
+notebook tab:checked button.flat > check {
   color: #1e2227;
 }
 
@@ -2719,6 +2665,7 @@ notebook .floating-bar {
 ************/
 statusbar {
   box-shadow: inset 2px 2px 0px 0px black, inset -2px -2px 0px 0px #222222, inset -1px -1px 0px 0px #888888;
+  font-size: small;
   padding: 2px;
 }
 
@@ -3140,56 +3087,6 @@ tooltip.background label {
 
 tooltip * {
   color: #1e2227;
-}
-
-
-.view:selected:focus,
-.view:selected:backdrop,
-.view:selected, textview text selection:focus, textview text selection,
-iconview:selected:focus,
-iconview:selected:backdrop,
-iconview:selected, flowbox flowboxchild:selected,
-entry selection {
-  background-color: #DFE0E1;
-}
-
-label:selected,
-.view:selected:focus,
-.view:selected:backdrop,
-.view:selected, textview text selection:focus, textview text selection,
-iconview:selected:focus,
-iconview:selected:backdrop,
-iconview:selected, flowbox flowboxchild:selected,
-entry selection {
-  color: #1e2227;
-  background-color: greenyellow;
-}
-
-label:disabled selection, label:disabled:selected,
-.view:disabled:selected, textview text selection:disabled,
-iconview:disabled:selected:focus,
-iconview:disabled:selected:backdrop,
-iconview:disabled:selected, flowbox flowboxchild:disabled:selected,
-entry selection:disabled {
-  color: #7f8184;
-}
-
-label:backdrop selection, label:backdrop:selected,
-.view:backdrop:selected, textview text selection:backdrop,
-iconview:backdrop:selected:focus,
-iconview:backdrop:selected,
-iconview:backdrop:selected, flowbox flowboxchild:backdrop:selected,
-entry selection:backdrop {
-  color: #292f35;
-  background-color: greenyellow;
-}
-
-label:backdrop selection:disabled, label:backdrop:disabled:selected,
-.view:backdrop:disabled:selected, textview text selection:backdrop:disabled,
-iconview:backdrop:disabled:selected, flowbox flowboxchild:backdrop:disabled:selected,
-entry selection:backdrop:disabled {
-  color: #a8abae;
-  background-color: greenyellow;
 }
 
 headerbar grid.format-bar button.toggle > grid {

@@ -14,8 +14,8 @@ $backdrop_transition: 200ms ease-out;
   padding: 0;
   // Don't use symbolic icons
   //-gtk-icon-style: regular;
-  -GtkToolButton-icon-spacing: 4;
-  -GtkTextView-error-underline-color: $error_color;
+  //-GtkToolButton-icon-spacing: 4;
+  //-GtkTextView-error-underline-color: $error_color;
 
   // The size for scrollbars. The slider is 2px smaller, but we keep it
   // up so that the whole area is sensitive to button presses for the
@@ -38,7 +38,7 @@ $backdrop_transition: 200ms ease-out;
 
   outline-color: gtkalpha(currentColor, 0.3);
   outline-style: dashed;
-  outline-offset: -3px;
+  outline-offset: -2px;
   outline-width: 1px;
   -gtk-outline-radius: 0;
 
@@ -92,6 +92,7 @@ decoration {
 /**************
  * Background *
 **************/
+
 dialog,
 messagedialog,
 window.background {
@@ -108,32 +109,30 @@ window.background {
   }
 }
 
-%view,
+/********
+ * View *
+********/
+
 .view {
-  &:first-child{
-    //@include ns_borders(inset);
-  }
   &:backdrop {
     &:disabled {
       color: $backdrop_insensitive_text_color;
     }
   }
-
   &:disabled {
     color: $insensitive_text_color;
     background-color: $bg_color;
   }
-
-  &:selected {
+  &:active,
+  &:selected, {
     &:focus,
-    &:backdrop,
     & {
-      @extend %selected_items;
       background-color: $ns_selected_bg_color;
       color: $ns_selected_fg_color;
-      border: none;
-      box-shadow: none;
-      border-radius: 2px;
+      &:backdrop {
+        background-color: $backdrop_ns_selected_bg_color;
+        color: $backdrop_ns_selected_fg_color;
+      }
     }
   }
 }
@@ -141,14 +140,12 @@ window.background {
 /***********
 * Textview *
 ***********/
-//.view,
 textview {
   text {
-    //@extend %view;
     background-color: $base_color;
     selection { 
       &:focus, & { 
-        @extend %selected_items;
+        //@extend %selected_items;
         background-color: $focus_color;
         color: white;
       }
@@ -158,10 +155,6 @@ textview {
     }
   }
 }
-// Below not working
-//textview border { background-color: mix($bg_color, $base_color, 50%); }
-
-iconview { @extend .view; }
 
 /**************
  * Rubberband *
@@ -171,22 +164,6 @@ iconview { @extend .view; }
 rubberband {
   border: 1px solid darken($ns_selected_bg_color, 10%);
   background-color: transparentize(darken($ns_selected_bg_color, 10%), 0.8);
-}
-
-flowbox {
-  rubberband { @extend rubberband; }
-
-  flowboxchild {
-    padding: 3px;
-
-    &:selected {
-      @extend %selected_items;
-      background-color: $focus_color;
-      color: white;
-
-      outline-offset: -2px;
-    }
-  }
 }
 
 /*************
@@ -408,6 +385,22 @@ frame {
    //border { border: none; }
  }
 
+/**********
+* Flowbox *
+**********/
+
+flowbox {
+  rubberband { @extend rubberband; }
+
+  flowboxchild {
+    padding: 6px;
+
+    &:selected {
+      background-color: $ns_selected_bg_color;
+      color: $ns_selected_fg_color;
+    }
+  }
+}
  
 
 /***********
@@ -482,19 +475,19 @@ button {
     }
   }
   // Suggested and Destructive Action buttons
-  @each $b_type, $b_color in (suggested-action, $suggested_color),
-                             (destructive-action, $destructive_color) {
+  @each $b_type, $b_color, $f_color in (suggested-action, $suggested_color, $ns_selected_fg_color),
+                             (destructive-action, $destructive_color, $text_color) {
     &.#{$b_type} {
-      @include button(normal, $b_color, $text_color);
+      @include button(normal, $b_color, $f_color);
       &.flat {
         @include button(undecorated-normal);
       }
       &:hover {
-        @include button(hover, $b_color, $text_color);
+        @include button(hover, $b_color, $f_color);
       }
       &:active,
       &:checked {
-        @include button(active, $b_color, $text_color);
+        @include button(active, $b_color, $f_color);
       }
       &.flat {
         @include button(undecorated-normal);
@@ -509,7 +502,7 @@ button {
       @include button(insensitive);
 
       &:active,
-      &:checked { @include button(insensitive-active, $b_color, white); }
+      &:checked { @include button(insensitive-active, $b_color, $f_color); }
       }
     }
   }
@@ -551,28 +544,7 @@ button {
     min-width: 2px;
   }
 }
-// menu buttons
-Amodelbutton.flat,
-.Amenuitem.button.flat {
-  min-height: 26px;
-  padding-left: 0px;
-  padding-right: 0px;
-  @include button(normal);
-  
 
-  //@extend %undecorated_button;
-
-  &:hover { 
-    //@include ns_borders(inset);
-    color: $ns_selected_fg_color;
-    background-color: $ns_selected_bg_color;
-  }
-
-  //&:selected { @extend %selected_items; }
-
-  //&:backdrop,
-  //&:backdrop:hover { @extend %undecorated_button; }
-}
 modelbutton.flat arrow {
   background: none;
 
@@ -667,26 +639,38 @@ modelbutton.flat arrow {
 spinbutton {
   @include ns_borders(inset);
   padding: 2px;
-  margin: 1px 1px 2px 1px;
+  &.horizontal{
+    entry {
+      padding: 0 6px;
+    }
+    button {
+      margin: 0 -1px -1px 0;
+    }
+  }
+  &.vertical {
+  padding: 1px 2px 0 1px;
+    entry {
+      padding: 3px 0;
+      margin: 0 1px 0 0;
+    }
+    button {
+      margin: 0 -1px 1px 0;
+    }
+  }
   entry,
   entry:disabled,
+  entry:focused,
   entry:backdrop,
   entry:disabled:backdrop {
     // Undo any borders
     box-shadow: none;
     min-height: 1px;
     min-width: 1px;
-    padding: 0 6px;
   }
   button {
     min-width: 12px;
     min-height: 12px;
-    margin: 0 -1px -1px 0;
   }
-}
-
-box > box {
-  //padding: 6px;
 }
 
 /************
@@ -888,6 +872,9 @@ spinner {
     modelbutton {
     padding: 2px 8px;
       @include button(menu-normal);
+      &:disabled {
+        @include button(insensitive);
+      }
       &:hover {
         @include button(active);
         background-image: none;
@@ -1019,49 +1006,13 @@ switch {
 * Labels *
 *********/
 
-.content-view .tile {
-  margin: 2px;
-  background-color: if($variant=='light', transparent, black);
-  border-radius: 0;
-  padding: 0;
-  
-  &:backdrop { background-color: if($variant=='light', transparent, darken($backdrop_base_color,5%)); }
-  &:active, &:selected { background-color: if($variant=='light', transparent, $selected_bg_color); }
-  &:disabled { background-color: if($variant=='light', transparent, $bg_color); }
-}
-
 label {
-  caret-color: currentColor; // this shouldn't be needed.
-
-  &.separator {
-    @extend .dim-label;
-  }
-
-  &:selected { @extend %nobg_selected_items; }
-
-  selection {
-    background-color: $ns_selected_bg_color;
-    color: $ns_selected_fg_color;
-  }
-
   &:disabled {
     color: $insensitive_text_color;
-
-    button & { color: inherit; }
-
     &:backdrop {
       color: $backdrop_insensitive_text_color;
-
-      button & { color: inherit; }
     }
-
-    selection { @extend %selected_items_disabled; }
   }
-
-  &:backdrop {
-    selection { @extend %selected_items_backdrop; }
-  }
-
   &.error {
     color: $error_color;
     &:disabled { color: transparentize($error_color,0.5); }
@@ -1071,47 +1022,6 @@ label {
 
 .dim-label {
   opacity: 0.55;
-  text-shadow: none;
-}
-
-aaaa.dim-label {
-  //opacity: 0.55;
-  text-shadow: none;
-  color: $text_color;
-  &:backdrop {
-    color: $backdrop_text_color;
-  }
-}
-
-aaalabel {
-  //caret-color: currentColor; // this shouldn't be needed.
-  &.separator {
-    //@extend .dim-label;
-  }
-  &:selected,
-  &:backdrop { 
-    //@extend %nobg_selected_items;
-  }
-  selection {
-// Not yet
-  }
-  &:disabled {
-    color: $insensitive_text_color;
-    button & { color: inherit; }
-    &:backdrop {
-      color: $backdrop_insensitive_text_color;
-      //button & { color: inherit; }
-    }
-    //selection { @extend %selected_items_disabled; }
-  }
-  &:backdrop {
-    color: $backdrop_text_color;
-  }
-  &.error {
-    color: $error_color;
-    &:disabled { color: transparentize($error_color,0.5); }
-    &:disabled:backdrop { color: transparentize($error_color,0.6); }
-  }
 }
 
 /**********
@@ -1153,8 +1063,7 @@ aaalabel {
  
      &:backdrop:disabled { @include entry(backdrop-insensitive); }
  
-     selection { 
-        @extend %selected_items; 
+     selection {
         background-color: $focus_color;
         color: white;
       }
@@ -1459,7 +1368,6 @@ toolbar {
 *************/
 notebook {
   @include ns_borders(inset);
-  //@include ns_gradient_background($bg_color, bottom);
   margin: 6px;
   padding: 2px;
   > header {
@@ -1498,12 +1406,15 @@ notebook {
   }
   tab {
     @include button(normal);
-    padding: 0px 8px 4px 8px;
-    //min-height: 16px;
+    padding: 0px 3px 3px 3px;
+
     &:hover { @include button(hover); }
-    
     &:checked {
       @include button(active);
+      button.flat {
+        @include button(undecorated-normal, transparent, $ns_selected_fg_color);
+
+      }
     }
     &:backdrop {
       @include button(backdrop-normal);
@@ -1554,6 +1465,7 @@ notebook {
 ************/
 statusbar {
     @include ns_borders(inset);
+    font-size: small;
     padding: 2px;
     &:backdrop {
       @include ns_borders(inset, $backdrop_bg_color);
@@ -1973,33 +1885,4 @@ levelbar {
   }
 }
 
-// catch all extend
 
-%AAAselected_items {
-  background-color: $selected_bg_color;
-  color: if($variant == 'light', $base_color, $text_color);
-  color: $base_color;
-}
-
-%selected_items {
-  background-color: $selected_bg_color;
-
-  @at-root %nobg_selected_items, & {
-    color: $ns_selected_fg_color;
-    background-color: greenyellow;
-
-    @at-root %selected_items_disabled,
-    &:disabled { color: mix($ns_selected_fg_color, $ns_selected_bg_color, 50%); }
-
-    @at-root %selected_items_backdrop,
-    &:backdrop {
-      color: $backdrop_ns_selected_fg_color;
-      background-color: greenyellow;
-
-      &:disabled {
-        color: mix($backdrop_ns_selected_fg_color, $ns_selected_bg_color, 30%);
-        background-color: greenyellow;
-      }
-    }
-  }
-}
