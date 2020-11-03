@@ -1,6 +1,6 @@
 #! /bin/zsh
 
-. wmtheme/wmcolors.zsh wmtheme/wmtheme.css
+. wmtheme/wmcolors.zsh wmtheme/generated_css/wmtheme.css
 
 cat <<EOF > build/windowmaker/STEPmaker.themed/style
 {
@@ -37,6 +37,6 @@ cat <<EOF > build/windowmaker/STEPmaker.themed/style
   ResizebarBack = (solid, "$BaseDark20");
   WindowTitleExtendSpace = 0;
   WindowTitleFont = "Cantarell:slant=0:weight=200:width=100:pixelsize=13";
-  WorkspaceBack = (dgradient, "$BaseDark20", "$BaseDark60");
+  WorkspaceBack = (mdgradient, "$Base", "$BaseDark40", "$BaseDark30", "$BaseDark40", "$BaseDark30", "$BaseDark40");
 }
 EOF

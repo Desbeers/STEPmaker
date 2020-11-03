@@ -1,10 +1,15 @@
 [Icon Theme]
 Name=STEPmaker
-Comment=Icons from the GNUstep Desktop Environment
+Comment=Icons based on NeXTSTEP
 Inherits=Adwaita
 Example=folder
 
-Directories=32/places,144/places,32/devices,144/devices
+Directories=16/actions,32/places,144/places,32/devices,144/devices
+
+[16/actions]
+Size=16
+Context=Actions
+Type=Scalable
 
 [32/places]
 Size=32

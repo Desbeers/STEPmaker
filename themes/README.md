@@ -1,8 +1,7 @@
-STEPmaker themes
-----------------
+# STEPmaker themes
 
-* A GTK 3 theme
-* A Window Maker theme that matches the style of the Gnome theme
+- A GTK3 theme in three variantions.
+- Window Maker themes that matches the style of the Gnome themes.
 
 Run `make-stepmaker.zsh` to build the theme.
 

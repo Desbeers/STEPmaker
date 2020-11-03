@@ -32,5 +32,5 @@
   ResizebarBack = (solid, "#7c767c");
   WindowTitleExtendSpace = 0;
   WindowTitleFont = "Cantarell:slant=0:weight=200:width=100:pixelsize=13";
-  WorkspaceBack = (dgradient, "#7c767c", "#131313");
+  WorkspaceBack = (mdgradient, "#AEAAAE", "#484448", "#625d62", "#484448", "#625d62", "#484448");
 }

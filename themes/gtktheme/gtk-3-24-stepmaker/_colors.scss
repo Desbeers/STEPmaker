@@ -25,14 +25,25 @@
 $base_color: if($variant == 'light', white, #1e2227);
 // Text foreground color:
 $text_color: if($variant == 'light', black, #DFE0E1);
-// Background color and its two deviations:
-$bg_color: if($variant == 'light', #AEAAAE, #2D333A);
+// Background:
+$bg_color: if($variant == 'light', #AEAAAE, #555555);
+// A brighter sub-variant;
+@if variable-exists(sub_variant) {
+  $bg_color: #D4D0C8;
+}
 $bg_color_20: if($variant == 'light', darken($bg_color,16.5), darken($bg_color,8.25));
 $bg_color_30: if($variant == 'light', darken($bg_color,33.5), darken($bg_color,16.75));
+
+$bg_color_20: darken($bg_color, 20);
+$bg_color_30: darken($bg_color, 30);
 // Insensitive text:
 $insensitive_text_color: mix($bg_color, $text_color, 50%);
 // Borders color:
 $borders_color: if($variant == 'light', mix($bg_color, $text_color, 50%), mix($bg_color, $text_color, 80%));
+// Sampled from WindowMaker:
+$borders_color: if($variant == 'light', #7C767C, #222222);
+$ns_up: if($variant == 'light', #E7E2E7, #999999);
+$ns_down: if($variant == 'light', #746F74, #282828);
 
 /**********************
 * Selection and focus *
@@ -40,9 +51,11 @@ $borders_color: if($variant == 'light', mix($bg_color, $text_color, 50%), mix($b
 // This is used for selected buttons:
 $ns_selected_bg_color: if($variant == 'light', $base_color, $text_color);
 $ns_selected_fg_color: if($variant == 'light', $text_color, $base_color);
+
+
 $ns_selected_insensitive_fg_color: mix($ns_selected_bg_color, $ns_selected_fg_color, 50%);
 // This is for text selection etc:
-$selected_bg_color: $bg_color_20;
+$selected_bg_color: if($variant == 'light', $bg_color_20, $ns_selected_bg_color);
 // This is a focus-ring for entries:
 $focus_color: #4b92e9;
 
@@ -66,6 +79,10 @@ $link_visited_color: $link_color;
 // Colors for the backdrop state, derived from the main colors.
 // Define how much darker the backdrop will be:
 $_ns_backdrop_dim: if($variant == 'light', 10, 5);
+// The brighter variant:
+@if variable-exists(sub_variant) {
+  $_ns_backdrop_dim: 4;
+}
 // Percentage of mixing of background and text
 $_ns_backdrop_text_color_dim: 50%;
 

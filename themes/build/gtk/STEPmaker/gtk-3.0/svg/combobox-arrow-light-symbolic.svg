@@ -11,7 +11,7 @@
    height="12"
    version="1.1"
    id="svg8"
-   sodipodi:docname="combobox-arrow-symbolic.svg"
+   sodipodi:docname="combobox-arrow-light-symbolic.svg"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    inkscape:export-filename="/home/desbeers/Documents/GnomeSTEP/themes/build/gtk/Foundation/gtk-3.0/svg/combobox-arrow.png"
    inkscape:export-xdpi="96"
@@ -43,7 +43,7 @@
      inkscape:window-height="866"
      id="namedview10"
      showgrid="true"
-     inkscape:zoom="58.955028"
+     inkscape:zoom="29.477514"
      inkscape:cx="5.2860669"
      inkscape:cy="4"
      inkscape:window-x="0"
@@ -84,59 +84,59 @@
        id="path4" />
   </g>
   <rect
-     style="fill:#777777;fill-opacity:1;stroke-width:1.02076;opacity:0.8"
+     style="opacity:0.8;fill:#777777;fill-opacity:1;stroke-width:1.02076"
      id="rect921-3"
      width="9"
      height="5.9999995"
      x="1.9999998"
-     y="2.0000005" />
+     y="6.0000005" />
   <rect
      style="display:inline;fill:#aaaaaa;fill-opacity:1;stroke-width:1.02076"
      id="rect921"
      width="9"
      height="6"
      x="0"
-     y="0" />
+     y="4" />
   <rect
      style="fill:#dddddd;fill-opacity:1;stroke-width:1.22966"
      id="rect938"
      width="7.9995775"
      height="0.99999988"
      x="0.00042289682"
-     y="0" />
+     y="4" />
   <rect
      style="fill:#dddddd;fill-opacity:1;stroke-width:1.43755"
      id="rect940"
      width="1"
      height="5"
      x="8.9858676e-16"
-     y="1" />
+     y="5" />
   <rect
      style="fill:#5e5e5e;fill-opacity:1"
      id="rect944"
      width="1"
      height="6"
      x="8"
-     y="0" />
+     y="4" />
   <rect
      style="fill:#5e5e5e;fill-opacity:1"
      id="rect946"
      width="7"
      height="1"
      x="1"
-     y="5" />
+     y="9" />
   <rect
      style="fill:#777777;fill-opacity:1"
      id="rect948"
      width="7"
      height="1"
      x="1"
-     y="4" />
+     y="8" />
   <rect
      style="fill:#777777;fill-opacity:1"
      id="rect950"
      width="1"
      height="3"
      x="7"
-     y="1" />
+     y="5" />
 </svg>

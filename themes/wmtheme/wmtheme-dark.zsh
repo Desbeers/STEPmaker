@@ -1,8 +1,8 @@
 #! /bin/zsh
 
-. wmtheme/wmcolors.zsh wmtheme/wmtheme-dark.css
+. wmtheme/wmcolors.zsh wmtheme/generated_css/wmtheme-dark.css
 
-cat <<EOF > build/windowmaker/STEPmakerDARK.themed/style
+cat <<EOF > build/windowmaker/STEPdarkmaker.themed/style
 {
   CClipTitleColor = "$BaseLight20";
   ClipTitleColor = "$BaseLight40";
@@ -12,7 +12,7 @@ cat <<EOF > build/windowmaker/STEPmakerDARK.themed/style
   FrameSelectedBorderColor = "$BaseDark20";
   HighlightColor = "$Active";
   HighlightTextColor = "$ActiveText";
-  IconBack = (mdgradient, "$BaseLight20", "$BaseDark30", "$BaseDark20", "$BaseDark30", "$BaseDark20", "$BaseDark30");
+  IconBack = (mdgradient, "$BaseLight30", "$BaseDark20", "$BaseDark10", "$BaseDark20", "$BaseDark10", "$BaseDark20");
   IconTitleBack = "$Base"; 
   IconTitleColor = "$BaseDark60";
   IconTitleFont = "Cantarell:slant=0:weight=80:width=100:pixelsize=9";
@@ -37,6 +37,6 @@ cat <<EOF > build/windowmaker/STEPmakerDARK.themed/style
   ResizebarBack = (solid, "$BaseDark10");
   WindowTitleExtendSpace = 0;
   WindowTitleFont = "Cantarell:slant=0:weight=200:width=100:pixelsize=13";
-  WorkspaceBack = (dgradient, "$BaseDark20", "$BaseDark60");
+  WorkspaceBack = (dgradient, "$Base", "$BaseDark60");
 }
 EOF

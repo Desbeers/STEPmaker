@@ -31,13 +31,58 @@ $_ns_hover_lighten: 5;
                 (inset -2px -2px 0px 0px darken($background,20)),
                 (inset -1px -1px 0px 0px lighten($background,20));
   }
+  // Focused inset, used for entries
+  @if ($style == 'focus') {
+    box-shadow: (inset 2px 2px 0px 0px darken($background,40)),
+                (inset -2px -2px 0px 0px darken($background,20)),
+                (inset -1px -1px 0px 0px lighten($background,20)),
+                (inset  0px -2px 0px 0px darken($focus_color,20)),;
+  }
 }
 
-@mixin ns_gradient_background($start: darken($bg_color,10), $end: $bg_color) {
-  background-image: linear-gradient(to right, $start, $end );
+@mixin ns_gradient_background($color: $bg_color, $dir: right) {
+  background-image: linear-gradient(to $dir, darken($color, 10), $color );
 }
 
+/*
+* Menu Check mixin
+*/
 
+// Checkboxes in menus are a bit flatter
+
+@mixin menu_check {
+  &,
+  &:checked,
+  &:hover,
+  &:checked:disabled,
+  &:disabled,
+  &:indeterminate,
+  &:disabled:indeterminate {
+    background-color: transparent;
+    box-shadow: none;
+    border: 1px solid transparent;
+    }
+}
+
+/*
+* Menu radio mixin
+*/
+
+// Radios in menus are a bit flatter
+
+@mixin menu_radio {
+  &,
+  &:checked,
+  &:checked:disabled,
+  &:disabled,
+  &:indeterminate,
+  &:disabled:indeterminate {
+    box-shadow: none;
+    border: 1px solid $borders_color;
+    min-height: 10px;
+    min-width: 10px;
+  }
+}
 
 /**************
 * Entry mixin *
@@ -94,7 +139,7 @@ Button mixin
   background-color: $background;
   &,
   label,
-  image {
+  > check {
     color: $foreground;
   }
 }
@@ -105,6 +150,13 @@ Button mixin
     @include ns_borders(outset, $background);
     @include ns_colors($background, $foreground);
   }
+  @if $type==menu-normal {
+    @include button(normal);
+    @include ns_gradient_background;
+    > label {
+      color: $foreground;
+    }
+  }
   // Hovered button
   @else if $type==hover {
     @include ns_borders(outset, lighten($background, $_ns_hover_lighten));
@@ -114,6 +166,18 @@ Button mixin
   @else if $type==active {
     @include ns_borders(active, $ns_selected_bg_color);
     @include ns_colors($ns_selected_bg_color, $ns_selected_fg_color);
+  }
+  // Hovered menu-button; it is actualy active...
+  @else if $type==menu-hover {
+    @include button(active);
+    background-image: none;
+    // Reset the label for nested menus
+    label {
+      color: $foreground;
+    }
+    > label {
+      color: $ns_selected_fg_color;
+    }
   }
   // Disabled button, ignoring foreground color
   @else if $type==insensitive {
