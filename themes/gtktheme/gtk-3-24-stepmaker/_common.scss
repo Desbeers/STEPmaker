@@ -124,7 +124,7 @@ window.background {
     background-color: $bg_color;
   }
   &:active,
-  &:selected, {
+  &:selected {
     &:focus,
     & {
       background-color: $ns_selected_bg_color;
@@ -186,16 +186,27 @@ headerbar {
     -gtk-icon-style: symbolic;
     min-height: 26px;
     min-width: 26px;
+    //@include ns_gradient_background($bg_color, top);
+    //@include button(undecorated-normal);
     &.disclosure-button  {
       // The dropdown thingy
       min-width: 20px;
+    }
+  }
+  separator {
+    &.sidebar.vertical {
+    // Completely hide the separator.
+    min-height: 0;
+    min-width: 0;
+    margin: 0;
+    background-color: transparent;
     }
   }
 }
 
 // Lets make the buttons bigger for Nautilus so the pathbar icons fit
 
-window.nautilus-window {
+awindow.nautilus-window {
   headerbar {
     button {
       min-height: 32px;
@@ -235,15 +246,20 @@ window.nautilus-window {
 // Nautilus sidebar
 placessidebar {
   // Don't use symbolic icons
-  -gtk-icon-style: regular;
+  //-gtk-icon-style: regular;
   list {
-    margin-top: -2px;
+    @include ns_borders(inset);
+    padding: 0 2px 2px 2px;
   }
   row {
     min-height: 24px;
     margin-top: -2px;
     image.sidebar-icon {
       padding-right: 6px;
+      //color: $bg_color_30;
+    }
+    &:selected button:hover {
+      background-color: transparent;
     }
     &.sidebar-new-bookmark-row { 
       @include button (insensitive-active);
@@ -274,13 +290,13 @@ placessidebar {
     background-image: url("svg/divider-vertical-symbolic.svg");
     background-position: center center;
     background-repeat: repeat-y;
-    margin: 6px 0;
+    margin: 6px -6px;
   }
   &.vertical > separator {
     background-image: url("svg/divider-horizontal-symbolic.svg");
     background-position: center center;
     background-repeat: repeat-x;
-    margin: 0 6px;
+    margin: -6px 6px;
   }
 }
 
@@ -406,7 +422,8 @@ flowbox {
 /***********
  * Buttons *
  ***********/
-button {
+button,
+modelbutton {
   min-height: 20px;
   //min-width: 24px;
   //padding: 1px 2px 3px 1px;
@@ -458,6 +475,7 @@ button {
     }
   }
   // Flat buttons
+  &.sidebar-button,
   &.flat {
     margin: 2px;
     min-height: 1px;
@@ -472,6 +490,9 @@ button {
     &:active,
     &:checked {
       @include button(undecorated-active, $ns_selected_bg_color, $ns_selected_fg_color);
+    }
+    &:disabled {
+      @include button(undecorated-insensitive);
     }
   }
   // Suggested and Destructive Action buttons
@@ -535,6 +556,11 @@ button {
     // Less min-weight because it might only the icon
     min-width: 10px;
     min-height: 10px;
+  }
+  // As used in Geary headebar
+   box  {
+    padding-left: 6px;
+    padding-right: 6px;
   }
   separator {
     background-image: url("svg/divider-vertical-symbolic.svg");
@@ -659,7 +685,7 @@ spinbutton {
   }
   entry,
   entry:disabled,
-  entry:focused,
+  entry:focus,
   entry:backdrop,
   entry:disabled:backdrop {
     // Undo any borders
@@ -848,52 +874,43 @@ spinner {
   }
 }
 
- /**************
- * Popover *
- **************/
- popover {
- 
- stack {
- // Hackish...
-   //margin: -10px -12px -11px -10px;
- }
-
-      separator {
-     min-height: 0;
-     background-color: transparent;
-   }
-
+/**************
+* Popover *
+**************/
+popover {
+  separator {
+    min-height: 2px;
+    background-color: transparent;
+    background-image: url("svg/divider-horizontal-symbolic.svg");
+    background-position: center center;
+    background-repeat: repeat-x;
+  }
   &.background {
     padding: 0;
     margin: 0;
-@include ns_borders(outset, $bg_color);
+    @include ns_borders(outset, $bg_color);
     background-color: $bg_color;
-    button,
+    // Would love to give it a bit more shadow.
+    box-shadow: 0 0 6px transparentize(black, 0.7);
     modelbutton {
-    padding: 2px 8px;
-      @include button(menu-normal);
-      &:disabled {
-        @include button(insensitive);
-      }
       &:hover {
-        @include button(active);
-        background-image: none;
+        // Hover is active here; just the color because they can be flat or not.
+        &,
+        check {
+        background-color: $ns_selected_bg_color;
+        }
       }
+      // Align check and radio's
       check {
-        margin-right: -6px;
-        @include menu-check;
+        margin: 1px 0 0 6px;
       }
       radio {
-        margin-right: -4px;
-        @include menu-radio;
+        margin: 0 1px 0 6px;
       }
     }
-
-
-  &:backdrop {
-  background-color: $backdrop_bg_color;
-  }
-
+    &:backdrop {
+      background-color: $backdrop_bg_color;
+    }
   }
 }
 
@@ -1194,12 +1211,9 @@ treeview entry {
 
 treeview {
   header {
-    //background-color: $bg_color_30;
     button {
       padding: 0 4px 2px 4px;
-      //@include ns_borders(outset, $bg_color_30, lighten($bg_color,100));
       @include button(normal, $bg_color_30, lighten($bg_color,100));
-      //background-color: $bg_color_30;
       min-height: 12px;
       &:backdrop {
         @include button(normal, darken($bg_color_30, $_ns_backdrop_dim), lighten($bg_color,100));
@@ -1221,118 +1235,70 @@ menubar,
      @include ns_borders(outset, $backdrop_bg_color);
      @include ns_gradient_background($backdrop_bg_color);
     }
- 
    > menuitem {
      min-height: 14px;
      padding: 2px 8px;
-     //padding: 2px;
      @include button(undecorated-normal);
-     //border: 1px solid transparent;
-
      &:hover {
-       @include button(menu-active);
+       @include button(menu-hover);
      }
- 
      &:disabled {
        color: $insensitive_text_color;
        box-shadow: none;
      }
    }
  }
-
+// Replicate WindowMaker menu as much as posible.
 menu,
-.menu,
 .context-menu {
-   //margin: 3px; // see https://bugzilla.gnome.org/show_bug.cgi?id=591258
-   //padding: 2px 1px 2px 1px;
-   //@include ns_borders(outset);
-   border: 1px solid $borders_color;
-   padding: 1px;
-   
-   background-color: $bg_color;
-   
- 
-   &:backdrop {
-     @include ns_borders(outset, $backdrop_borders_color);
-     background-color: $backdrop_bg_color;
+  border: 1px solid $borders_color;
+  padding: 1px;
+  background-color: $bg_color;
+  &:backdrop {
+    @include ns_borders(outset, $backdrop_borders_color);
+    background-color: $backdrop_bg_color;
+  }
+  > menuitem {
+    min-height: 18px;
+    min-width: 18px;
+    padding: 2px;
+    @include button(menu-normal);
+    @include ns_gradient_background($bg_color);
+    &:hover {
+      @include button(menu-hover);
+      background-image: none;
     }
-   > menuitem {
-     min-height: 18px;
-     min-width: 18px;
-     
-     padding: 2px;
-      @include button(menu-normal);
-      @include ns_gradient_background($bg_color);
-     &:hover {
-       @include button(menu-hover);
-       background-image: none;
-     }
- 
-     &:disabled {
+    &:disabled {
       @include button(insensitive);
-      
-       //background-image: none;
-       &:backdrop { color: $backdrop_insensitive_text_color; }
-     }
- 
-     &:backdrop,
-     &:backdrop:hover {
-       color: $backdrop_text_color;
-       background-color: transparent;
-     }
-      check {
+      &:backdrop { color: $backdrop_insensitive_text_color; }
+    }
+    &:backdrop,
+    &:backdrop:hover {
+      color: $backdrop_text_color;
+      background-color: transparent;
+    }
+    check {
       @include menu_check;
-      }
-      radio {
+    }
+    radio {
       @include menu_radio;
+    }
+    // submenu indicators
+    arrow {
+      min-height: 11px;
+      min-width: 11px;
+        -gtk-icon-source: url("png/pan-end-symbolic.png");
+        margin: 0 2px 0 10px;
       }
-     // submenu indicators
-     arrow {
-       min-height: 11px;
-       min-width: 11px;
- 
-         //-gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
-         -gtk-icon-source: url("png/pan-end-symbolic.png");
-         margin: 0 2px 0 10px;
-
-     }
-   }
-   separator {
-     min-height: 0px;
-     background-color: transparent;
-   }
-   accelerator { color: $insensitive_text_color }
-   // overflow arrows
-   > arrow {
-     @include button(undecorated);
- 
-     min-height: 16px;
-     min-width: 16px;
-     padding: 4px;
-     // Reset the custom arrow from the dropdown button
-     background-image: none;
-     border-radius: 0;
- 
-     &.top {
-       margin-top: -4px;
-       -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
-     }
- 
-     &.bottom {
-       margin-top: 8px;
-       margin-bottom: -12px;
-       -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
-     }
- 
-     &:hover { background-color: mix($text_color, $base_color, 10%); }
- 
-     &:disabled {
-       color: transparent;
-       background-color: transparent;
-       border-color: transparent ;
-     }
-   }
- }
+  }
+  separator {
+    min-height: 0px;
+    background-color: transparent;
+  }
+  accelerator {
+    color: $insensitive_text_color
+  }
+}
 
 /**********
 * Toolbar *
@@ -1368,6 +1334,7 @@ toolbar {
 *************/
 notebook {
   @include ns_borders(inset);
+  //background-color: $base_color;
   margin: 6px;
   padding: 2px;
   > header {
@@ -1856,7 +1823,7 @@ levelbar {
     &.empty {
       background-color: transparent;
       border-color: if($variant == 'light', transparentize($text_color,0.8), transparentize($text_color,0.9));
-      &:backdrop { aborder-color: $backdrop_text_color; }
+      &:backdrop { border-color: $backdrop_text_color; }
     }
   }
 }

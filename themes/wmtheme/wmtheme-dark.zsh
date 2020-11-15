@@ -34,7 +34,7 @@ cat <<EOF > build/windowmaker/STEPdarkmaker.themed/style
   TitleJustify = center;
   UTitleBack = (dgradient, "$BaseDark40", "$BaseDark40");
   UTitleColor = "$UTitleColor";
-  ResizebarBack = (solid, "$BaseDark10");
+  ResizebarBack = (solid, "$Base");
   WindowTitleExtendSpace = 0;
   WindowTitleFont = "Cantarell:slant=0:weight=200:width=100:pixelsize=13";
   WorkspaceBack = (dgradient, "$Base", "$BaseDark60");

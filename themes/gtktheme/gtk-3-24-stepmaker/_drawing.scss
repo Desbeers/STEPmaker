@@ -82,6 +82,7 @@ $_ns_hover_lighten: 5;
     border: 1px solid $borders_color;
     min-height: 10px;
     min-width: 10px;
+    //margin: 0 6px;
   }
 }
 
@@ -143,6 +144,9 @@ Button mixin
   > check {
     color: $foreground;
   }
+  image {
+    color: mix($background, $foreground, 30%);
+  }
 }
 
 @mixin button($type, $background:$bg_color, $foreground:$text_color) {
@@ -194,6 +198,11 @@ Button mixin
   @else if $type==undecorated-normal {
     border: 1px solid transparent;
     @include ns_colors(transparent, $foreground);
+    box-shadow: none;
+  }
+  @else if $type==undecorated-insensitive {
+    border: 1px solid transparent;
+    @include ns_colors(transparent, $insensitive_text_color);
     box-shadow: none;
   }
   // Flat hover button, has a border

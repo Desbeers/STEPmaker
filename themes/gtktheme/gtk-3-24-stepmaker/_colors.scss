@@ -81,7 +81,7 @@ $link_visited_color: $link_color;
 $_ns_backdrop_dim: if($variant == 'light', 10, 5);
 // The brighter variant:
 @if variable-exists(sub_variant) {
-  $_ns_backdrop_dim: 4;
+  $_ns_backdrop_dim: 10;
 }
 // Percentage of mixing of background and text
 $_ns_backdrop_text_color_dim: 50%;

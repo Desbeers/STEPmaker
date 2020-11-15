@@ -29,7 +29,7 @@
   TitleJustify = center;
   UTitleBack = (dgradient, "black", "black");
   UTitleColor = "#d2d3d5";
-  ResizebarBack = (solid, "#3c3c3c");
+  ResizebarBack = (solid, "#555555");
   WindowTitleExtendSpace = 0;
   WindowTitleFont = "Cantarell:slant=0:weight=200:width=100:pixelsize=13";
   WorkspaceBack = (dgradient, "#555555", "black");
